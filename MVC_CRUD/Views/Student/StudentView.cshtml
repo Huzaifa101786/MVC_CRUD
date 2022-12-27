@@ -1,0 +1,66 @@
+﻿@model List<StudentModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h3>Student Form</h3>
+<div id="down">
+<form asp-action="StudentView">
+<b>Name: </b>    
+<input name = "Name" type="text" placeholder="Enter your Name" /><br />
+ <b>Email:  </b>
+<input name="Email" type="text" placeholder="Enter your Email" /><br />
+<input type="submit" style="background-color:dodgerblue" />
+</form>
+</div>
+
+<div id="up" style="display:none">
+<form asp-action="UpdateStd" >
+<b>Name: </b>
+<input name="Name" type="text" placeholder="Enter your Name" /><br />
+<b>Email:  </b>
+<input name="Email" type="text" placeholder="Enter your Email"/> <br />
+<input type="submit" value="Update" style="background-color:forestgreen" />
+<input _OldName=OldName type="hidden"  /> 
+
+</form>
+</div>
+
+
+
+<br />
+<br />
+<table>
+  <thead>
+    <tr>     
+      <th scope="col">Name </th>
+      <th scope="col">Email </th>    
+      <th scope="col"></th>    
+    </tr>
+
+        @foreach(StudentModel x in Model)
+        {
+            <tr>     
+                <td scope="col">@x.Name </td> 
+                <input OldName="@x.Name" type="hidden"></input>
+                <td scope="col">@x.Email</td>
+                <input type="hidden" name=" Name">
+                <td>
+                    <button id="update">
+                        <a asp-action="UpdateStd" asp-route-Name=@x.Name onclick="document.getElementById('up').style.display='block'
+                             document.getElementById('down').style.display='none'">Update
+                            
+                        </a> </button>
+                </td>
+                <td>
+                <button id="del"><a asp-action ="DeleteStd" asp-route-Name =@x.Name>Delete</a></button>
+                </td>
+                 
+
+            </tr>
+        }
+        </tbody>
+</table>
+
